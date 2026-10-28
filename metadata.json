@@ -1,0 +1,8 @@
+{
+  "name": "AutoLingo - Translator Keyboard",
+  "description": "Custom Android keyboard that auto-translates Bangla to English, Spanish, Arabic, Portuguese, and more before sending in WhatsApp, Telegram, Messenger, and Instagram.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
