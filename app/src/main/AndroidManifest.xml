@@ -2,15 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Network permissions for translation APIs -->
+    <!-- Permissions for Floating Bubble and Translation -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- Haptic feedback on keyboard touch -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- Overlay permission for incoming message translation bubble -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
+        <!-- Main Home & Live Playground Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,23 +34,26 @@
             </intent-filter>
         </activity>
 
-        <!-- Custom Input Method Service (AutoLingo Keyboard) -->
+        <!-- Settings Activity -->
+        <activity
+            android:name="com.lingobubble.settings.SettingsActivity"
+            android:exported="true"
+            android:label="Settings"
+            android:theme="@style/Theme.MyApplication" />
+
+        <!-- Floating Bubble Foreground Service (like Messenger chat head) -->
         <service
-            android:name=".service.AutoLingoInputMethodService"
-            android:label="@string/ime_name"
-            android:permission="android.permission.BIND_INPUT_METHOD"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.view.InputMethod" />
-            </intent-filter>
-            <meta-data
-                android:name="android.view.im"
-                android:resource="@xml/method" />
+            android:name="com.lingobubble.service.FloatingBubbleService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Floating screen overlay bubble that performs drag-to-translate OCR and instant multilingual translation" />
         </service>
 
-        <!-- Accessibility Service for incoming message detection in chat apps -->
+        <!-- Screen Text Capture Accessibility Service (Method A) -->
         <service
-            android:name=".service.AutoLingoAccessibilityService"
+            android:name="com.lingobubble.service.MyAccessibilityService"
             android:label="@string/accessibility_service_name"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="true">

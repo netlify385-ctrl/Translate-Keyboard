@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">AutoLingo</string>
-    <string name="ime_name">AutoLingo Translator Keyboard</string>
-    <string name="accessibility_service_name">AutoLingo Message Translator</string>
-    <string name="accessibility_service_description">Translates incoming messages in chat apps like WhatsApp, Telegram, and Messenger into Bangla floating bubble.</string>
+    <string name="app_name">LingoBubble</string>
+    <string name="floating_service_notification_title">LingoBubble is active</string>
+    <string name="floating_service_notification_desc">Drag the bubble onto any text on screen to translate</string>
+    <string name="accessibility_service_name">LingoBubble Screen Text Capture</string>
+    <string name="accessibility_service_description">Enables LingoBubble to detect and translate text directly under the floating bubble across WhatsApp, Telegram, Messenger, and all apps.</string>
 </resources>

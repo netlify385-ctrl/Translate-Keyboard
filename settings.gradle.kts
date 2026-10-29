@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "AutoLingo"
+rootProject.name = "LingoBubble"
 
 include(":app")

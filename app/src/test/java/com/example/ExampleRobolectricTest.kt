@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.data.AppDatabase
 import com.example.data.entity.TranslationHistoryItem
-import com.example.model.LanguageCatalog
+import com.lingobubble.utils.LanguageList
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -41,41 +41,46 @@ class ExampleRobolectricTest {
     fun testAppName() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val appName = context.getString(R.string.app_name)
-        assertEquals("AutoLingo", appName)
+        assertEquals("LingoBubble", appName)
     }
 
     @Test
-    fun testLanguageCatalogLookup() {
-        val bn = LanguageCatalog.findByCode("bn")
+    fun testLanguageListLookup() {
+        val bn = LanguageList.getByCode("bn")
         assertEquals("Bangla", bn.name)
         assertEquals("🇧🇩", bn.flag)
 
-        val en = LanguageCatalog.findByCode("en")
+        val en = LanguageList.getByCode("en")
         assertEquals("English", en.name)
         assertEquals("🇺🇸", en.flag)
 
-        val es = LanguageCatalog.findByCode("es")
+        val es = LanguageList.getByCode("es")
         assertEquals("Spanish", es.name)
+        assertEquals("🇪🇸", es.flag)
+
+        val searchResults = LanguageList.search("spanish")
+        assertTrue(searchResults.any { it.code == "es" })
+        assertTrue(LanguageList.languages.size >= 100)
     }
 
     @Test
     fun testRoomHistoryInsertAndRetrieve() = runBlocking {
         val item = TranslationHistoryItem(
-            sourceText = "আপনি কেমন আছেন?",
-            translatedText = "How are you?",
-            fromLang = "bn",
-            toLang = "en",
-            engine = "MyMemory",
-            isIncoming = false
+            sourceText = "Hello, how are you?",
+            translatedText = "হ্যালো, আপনি কেমন আছেন?",
+            fromLang = "en",
+            toLang = "bn",
+            engine = "Gemini 1.5 Flash",
+            isIncoming = true
         )
         val id = db.historyDao().insert(item)
         assertTrue(id > 0)
 
         val history = db.historyDao().getAllHistory().first()
         assertEquals(1, history.size)
-        assertEquals("আপনি কেমন আছেন?", history[0].sourceText)
-        assertEquals("How are you?", history[0].translatedText)
-        assertEquals("bn", history[0].fromLang)
-        assertEquals("en", history[0].toLang)
+        assertEquals("Hello, how are you?", history[0].sourceText)
+        assertEquals("হ্যালো, আপনি কেমন আছেন?", history[0].translatedText)
+        assertEquals("en", history[0].fromLang)
+        assertEquals("bn", history[0].toLang)
     }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "AutoLingo - Translator Keyboard",
-  "description": "Custom Android keyboard that auto-translates Bangla to English, Spanish, Arabic, Portuguese, and more before sending in WhatsApp, Telegram, Messenger, and Instagram.",
+  "name": "LingoBubble - Drag to Translate",
+  "description": "Floating bubble translator like Hi Translate and Messenger. Drag and drop onto any text across any app for instant OCR text extraction and Gemini AI translation in 100+ languages.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
